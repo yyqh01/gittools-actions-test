@@ -1,0 +1,27 @@
+name: 生成你好文件
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    name: 生成并上传你好文件
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: 生成你好.txt
+        shell: bash
+        run: |
+          printf '你好\n' > '你好.txt'
+          cat '你好.txt'
+
+      - name: 上传你好.txt
+        uses: actions/upload-artifact@v4
+        with:
+          name: 你好文件
+          path: 你好.txt
+          if-no-files-found: error
+          retention-days: 1
